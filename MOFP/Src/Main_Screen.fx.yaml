@@ -126,10 +126,7 @@ Main_Screen As screen:
             CheckmarkFill: =Green
             Color: =
             Default: |
-                =//If(CountRows(Filter(DB_A_Registration, Title = Text(Today())))>0 And CountRows(Filter(DB_A_Registration, ID_Registration = ThisItem.ID))>0,
-                //true,
-                //false
-                //)
+                =
                 If(IsBlank(LookUp(DB_Attendance,ID_Registration=ThisItem.ID And Title=Text(Today(), "mm/dd/yyyy"),ID)),
                 false,
                 true
