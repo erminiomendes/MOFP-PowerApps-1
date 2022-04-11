@@ -1,3 +1,12 @@
 # Marpole Oakridge Family Place - Attendance App
 
-This app is created to integrate Marpole Oakridge Family Place's online registration using MS Forms, save database in MS SharePoint Lists, automate new responses with MS Power Automate, and create/read/update/delete in real-time using MS PowerApps. 
+## Purpose
+This app is created to integrate Marpole Oakridge Family Place's online registration using MS Forms, update database in MS SharePoint Lists, automate new responses with MS Power Automate, and create/read/update/delete registered participants in real-time using MS PowerApps. 
+
+Main purpose of this app is to improve productivity in the company and have all information in the Microsoft 365 environment to eliminate manual entry and paper filing. Each facilitators will have their own versions of the app and be able to see their participant lists in real-time and update attendance daily. All information will be saved in the SharePoint database for the Director to see the analytics. 
+
+## Stacks 
+- MS Forms (Registration)
+- MS SharePoint (Database)
+- MS Power Automate (Automation)
+- MS PowerApps (Attendance App)
