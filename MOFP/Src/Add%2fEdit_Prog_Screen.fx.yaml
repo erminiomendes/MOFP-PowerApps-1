@@ -1,0 +1,316 @@
+"'Add/Edit_Prog_Screen' As screen":
+
+    Rectangle2_3 As rectangle:
+        BorderColor: =RGBA(255, 255, 255, 0.51)
+        Fill: =RGBA(245, 157, 35, 1)
+        Height: =73
+        Width: =1024.00
+        X: =0.00
+        ZIndex: =2
+
+    Image1_3 As image:
+        Height: =80
+        Image: ='mofp-logo-colour-dark'
+        OnSelect: =Navigate(Main_Screen)
+        PaddingRight: =0.00
+        PaddingTop: =0.00
+        Width: =108.70
+        X: =33.73
+        ZIndex: =3
+
+    bt_Register As button:
+        Fill: =RGBA(255, 255, 255, 0.28)
+        Height: =52
+        HoverColor: =RGBA(255, 191, 0, 1)
+        HoverFill: =ColorFade(RGBA(255, 191, 0, 1), -20%)
+        OnSelect: =NewForm('add/edit_form');Navigate('Add/Edit_Screen')
+        PaddingRight: =3.75
+        PaddingTop: =3.75
+        Size: =11.24
+        Text: ="Register"
+        Width: =83.96
+        X: =901.81
+        Y: =10
+        ZIndex: =4
+
+    bt_NewProgram As button:
+        Fill: =RGBA(255, 255, 255, 0.28)
+        Height: =52
+        HoverColor: =RGBA(255, 191, 0, 1)
+        HoverFill: =ColorFade(RGBA(255, 191, 0, 1), -20%)
+        OnSelect: =NewForm('Add/Edit_Prog_Form'); Navigate('Add/Edit_Prog_Screen')
+        PaddingRight: =3.75
+        PaddingTop: =3.75
+        Size: =11.24
+        Text: ="New Program"
+        Width: =130.44
+        X: =742.89
+        Y: =10
+        ZIndex: =5
+
+    bt_Save As button:
+        Fill: =RGBA(245, 157, 35, 1)
+        OnSelect: |-
+            =SubmitForm('Add/Edit_Prog_Form');
+            Back();
+        PaddingRight: =3.75
+        PaddingTop: =3.75
+        Size: =11.24
+        Text: ="Save"
+        Width: =119
+        X: =365.82
+        Y: =332
+        ZIndex: =6
+
+    bt_Back As button:
+        Fill: =RGBA(245, 157, 35, 1)
+        OnSelect: =Back();
+        PaddingRight: =3.75
+        PaddingTop: =3.75
+        Size: =11.24
+        Text: ="Back"
+        Width: =119
+        X: =525.49
+        Y: =332
+        ZIndex: =7
+
+    "'Add/Edit_Prog_Form' As form":
+        DataSource: =DB_Programs
+        Height: =206
+        Item: =Programs_Gallery_List.Selected
+        NumberOfColumns: =2
+        Width: =1024
+        Y: =92
+        ZIndex: =8
+
+        Title_DataCard1 As typedDataCard.textualEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Title"
+            Default: =ThisItem.Title
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@DB_Programs],DataSourceInfo.DisplayName,"Title")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@DB_Programs], DataSourceInfo.MaxLength, "Title")
+            Required: =true
+            Update: =DataCardValue10.Text
+            Width: =512
+            X: =0
+            Y: =0
+            ZIndex: =9
+
+            DataCardKey10 As label:
+                AutoHeight: =true
+                Height: =34
+                PaddingRight: =3.75
+                PaddingTop: =3.75
+                Size: =9.75
+                Text: =Parent.DisplayName
+                Width: =285.61
+                Wrap: =false
+                X: =22.49
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue10 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                PaddingRight: =3.75
+                PaddingTop: =3.75
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =9.75
+                Tooltip: =Parent.DisplayName
+                Width: =460
+                X: =22.49
+                Y: =DataCardKey10.Y + DataCardKey10.Height + 5
+                ZIndex: =2
+
+            ErrorMessage10 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0.00
+                PaddingTop: =0.00
+                Size: =10.49
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =285.61
+                X: =22.49
+                Y: =DataCardValue10.Y + DataCardValue10.Height
+                ZIndex: =3
+
+            StarVisible10 As label:
+                Align: =Align.Center
+                Height: =DataCardKey10.Height
+                PaddingRight: =3.75
+                PaddingTop: =3.75
+                Size: =9.75
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =22.49
+                Wrap: =false
+                X: =0.00
+                Y: =DataCardKey10.Y
+                ZIndex: =4
+
+        ProgramStartDate_DataCard1 As typedDataCard.dateEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="ProgramStartDate"
+            Default: =ThisItem.ProgramStartDate
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@DB_Programs],DataSourceInfo.DisplayName,"ProgramStartDate")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =DataCardValue11.SelectedDate
+            Width: =512
+            X: =1
+            Y: =0
+            ZIndex: =9
+
+            DataCardKey11 As label:
+                AutoHeight: =true
+                Height: =34
+                PaddingRight: =3.75
+                PaddingTop: =3.75
+                Size: =9.75
+                Text: =Parent.DisplayName
+                Width: =285.61
+                Wrap: =false
+                X: =22.49
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue11 As datepicker:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DefaultDate: =Parent.Default
+                DisplayMode: =Parent.DisplayMode
+                EndYear: =Year(Today())+100
+                IsEditable: =true
+                PaddingBottom: =0
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PaddingRight: =3.75
+                PaddingTop: =0.00
+                Size: =10.49
+                StartYear: =1899
+                Tooltip: =Parent.DisplayName
+                Width: =460
+                X: =22.49
+                Y: =DataCardKey11.Y + DataCardKey11.Height + 5
+                ZIndex: =2
+
+            ErrorMessage11 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0.00
+                PaddingTop: =0.00
+                Size: =10.49
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =285.61
+                X: =22.49
+                Y: =DataCardValue11.Y + DataCardValue11.Height
+                ZIndex: =3
+
+            StarVisible11 As label:
+                Align: =Align.Center
+                Height: =DataCardKey11.Height
+                PaddingRight: =3.75
+                PaddingTop: =3.75
+                Size: =9.75
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =22.49
+                Wrap: =false
+                X: =0.00
+                Y: =DataCardKey11.Y
+                ZIndex: =4
+
+        ProgramEndDate_DataCard1 As typedDataCard.dateEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="ProgramEndDate"
+            Default: =ThisItem.ProgramEndDate
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@DB_Programs],DataSourceInfo.DisplayName,"ProgramEndDate")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: =DataCardValue12.SelectedDate
+            Width: =512
+            X: =0
+            Y: =1
+            ZIndex: =9
+
+            DataCardKey12 As label:
+                AutoHeight: =true
+                Height: =34
+                PaddingRight: =3.75
+                PaddingTop: =3.75
+                Size: =9.75
+                Text: =Parent.DisplayName
+                Width: =285.61
+                Wrap: =false
+                X: =22.49
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue12 As datepicker:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DefaultDate: =Parent.Default
+                DisplayMode: =Parent.DisplayMode
+                EndYear: =Year(Today())+100
+                IsEditable: =true
+                PaddingBottom: =0
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PaddingRight: =3.75
+                PaddingTop: =0.00
+                Size: =10.49
+                StartYear: =1899
+                Tooltip: =Parent.DisplayName
+                Width: =460
+                X: =22.49
+                Y: =DataCardKey12.Y + DataCardKey12.Height + 5
+                ZIndex: =2
+
+            ErrorMessage12 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0.00
+                PaddingTop: =0.00
+                Size: =10.49
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =285.61
+                X: =22.49
+                Y: =DataCardValue12.Y + DataCardValue12.Height
+                ZIndex: =3
+
+            StarVisible12 As label:
+                Align: =Align.Center
+                Height: =DataCardKey12.Height
+                PaddingRight: =3.75
+                PaddingTop: =3.75
+                Size: =9.75
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =22.49
+                Wrap: =false
+                X: =0.00
+                Y: =DataCardKey12.Y
+                ZIndex: =4
+

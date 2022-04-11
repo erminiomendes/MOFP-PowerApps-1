@@ -1,0 +1,189 @@
+"Program_Screen As screen.'tabletLayout_HeaderAndGallery_ver3.0'":
+
+    "Programs_Gallery_List As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+        BorderColor: =RGBA(128, 128, 128, 1)
+        Height: =666
+        Items: =DB_Programs
+        Layout: =Layout.Vertical
+        ShowNavigation: =true
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =82
+        Width: =961.03
+        X: =23.99
+        Y: =93
+        ZIndex: =3
+
+        Image2 As image:
+            Height: =128
+            Image: =
+            OnSelect: =Select(Parent)
+            PaddingRight: =0.00
+            PaddingTop: =0.00
+            Visible: =false
+            Width: =95.95
+            X: =11.99
+            Y: =(Parent.TemplateHeight / 2) - (Self.Height / 2)
+            ZIndex: =1
+
+        Title2 As label:
+            Height: =33
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0.00
+            PaddingTop: =0.00
+            Size: =14.99
+            Text: =ThisItem.Title
+            VerticalAlign: =VerticalAlign.Top
+            Width: =361.32
+            X: =124.44
+            Y: =24
+            ZIndex: =2
+
+        Subtitle1 As label:
+            Height: =26
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0.00
+            PaddingTop: =0.00
+            Size: =13.49
+            Text: =ThisItem.ProgramStartDate
+            VerticalAlign: =VerticalAlign.Top
+            Width: =141.68
+            X: =576.47
+            Y: =28
+            ZIndex: =3
+
+        NextArrow2 As icon.ChevronRight:
+            AccessibleLabel: =Self.Tooltip
+            BorderColor: =varColors.Colors.BorderColor
+            Color: =RGBA(128, 128, 128, 1)
+            DisabledBorderColor: =RGBA(128, 128, 128, 1)
+            FocusedBorderColor: =RGBA(128, 128, 128, 1)
+            Height: =60
+            Icon: =Icon.Edit
+            OnSelect: |
+                =EditForm('Add/Edit_Prog_Form');
+                Navigate('Add/Edit_Prog_Screen');
+            PaddingBottom: =10
+            PaddingLeft: =10
+            PaddingRight: =7.50
+            PaddingTop: =7.50
+            TabIndex: =0
+            Tooltip: ="View item details"
+            Width: =44.98
+            X: =912.30
+            Y: =(Parent.TemplateHeight / 2) - (Self.Height / 2)
+            ZIndex: =4
+
+        Separator2 As rectangle:
+            BorderColor: =RGBA(128, 128, 128, 1)
+            Height: =1
+            OnSelect: =Select(Parent)
+            Width: =961.03
+            X: =0.00
+            Y: =Parent.TemplateHeight - 1
+            ZIndex: =5
+
+        Subtitle1_1 As label:
+            Height: =26
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0.00
+            PaddingTop: =0.00
+            Size: =13.49
+            Text: =ThisItem.ProgramEndDate
+            VerticalAlign: =VerticalAlign.Top
+            Width: =91.46
+            X: =768.37
+            Y: =28
+            ZIndex: =6
+
+        Label7 As label:
+            OnSelect: =Select(Parent)
+            PaddingRight: =3.75
+            PaddingTop: =3.75
+            Size: =9.75
+            Text: |-
+                ="Program Name:"
+            Width: =112.45
+            X: =11.99
+            Y: =21
+            ZIndex: =7
+
+        Label7_1 As label:
+            OnSelect: =Select(Parent)
+            PaddingRight: =3.75
+            PaddingTop: =3.75
+            Size: =9.75
+            Text: |-
+                ="Start:"
+            Width: =112.45
+            X: =533.74
+            Y: =22
+            ZIndex: =8
+
+        Label7_2 As label:
+            Height: =32
+            OnSelect: =Select(Parent)
+            PaddingRight: =3.75
+            PaddingTop: =3.75
+            Size: =9.75
+            Text: |-
+                ="End:"
+            Width: =71.96
+            X: =726.40
+            Y: =26
+            ZIndex: =9
+
+    Rectangle2_2 As rectangle:
+        BorderColor: =RGBA(255, 255, 255, 0.51)
+        Fill: =RGBA(245, 157, 35, 1)
+        Height: =73
+        Width: =1024.00
+        X: =0.00
+        ZIndex: =4
+
+    Image1_2 As image:
+        Height: =80
+        Image: ='mofp-logo-colour-dark'
+        OnSelect: =Navigate(Main_Screen)
+        PaddingRight: =0.00
+        PaddingTop: =0.00
+        Width: =108.70
+        X: =23.99
+        ZIndex: =5
+
+    Button2_2 As button:
+        Fill: =RGBA(255, 255, 255, 0.28)
+        Height: =52
+        HoverColor: =RGBA(255, 191, 0, 1)
+        HoverFill: =ColorFade(RGBA(255, 191, 0, 1), -20%)
+        OnSelect: =NewForm('add/edit_form');Navigate('Add/Edit_Screen')
+        PaddingRight: =3.75
+        PaddingTop: =3.75
+        Size: =11.24
+        Text: ="Register"
+        Width: =83.96
+        X: =901.06
+        Y: =10
+        ZIndex: =6
+
+    Button2_3 As button:
+        Fill: =RGBA(255, 255, 255, 0.28)
+        Height: =52
+        HoverColor: =RGBA(255, 191, 0, 1)
+        HoverFill: =ColorFade(RGBA(255, 191, 0, 1), -20%)
+        OnSelect: =NewForm('Add/Edit_Prog_Form'); Navigate('Add/Edit_Prog_Screen')
+        PaddingRight: =3.75
+        PaddingTop: =3.75
+        Size: =11.24
+        Text: ="New Program"
+        Width: =130.44
+        X: =733.14
+        Y: =10
+        ZIndex: =7
+

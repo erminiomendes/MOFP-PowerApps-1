@@ -1,0 +1,294 @@
+Main_Screen As screen:
+    Fill: =
+    OnVisible: |-
+        =//ClearCollect(collectProgramName, {Result:"All"});
+        //Collect(collectProgramName, Distinct(DB_Registration, ProgramName));
+        
+        //Collect(collectStartDate, If (dd_ProgramName.Selected.Result = "All", 
+        //Distinct(DB_Registration, StartDate), 
+        //Filter(DB_Registration, ProgramName = dd_ProgramName.Selected.Result)
+        //))
+
+    "Registration_Gallery As gallery.'BrowseLayout_Vertical_TwoTextVariant_ver4.0'":
+        BorderColor: =RGBA(230, 230, 230, 1)
+        Fill: |-
+            =//If(CountRows(Filter(DB_A_Registration,ID_Registration = ThisItem.ID))>0 And CountRows(Filter(DB_A_Registration, Title = Text(Today())))>0,
+             //   RGBA(60,179,113, 1),
+              //  RGBA(60,179,113, 0)
+               //)
+            
+            RGBA(0,0,0, 0)
+        Height: =580
+        Items: |-
+            =If(
+                // This is for all programs
+                IsBlank(cd_ProgramName.Selected.Result), 
+                DB_Registration,
+                Filter(DB_Registration, ProgramName = cd_ProgramName.Selected.Result And StartDate = dd_StartDate.Selected.Result)
+                )
+        Layout: =Layout.Vertical
+        ShowNavigation: =true
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =Min(104, Self.Height - 60)
+        Width: =976
+        X: =14
+        Y: =188
+        ZIndex: =1
+
+        ParentsName As label:
+            Align: =Align.Justify
+            Height: =27
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0.00
+            PaddingTop: =0.00
+            Size: =14
+            Text: =ThisItem.FirstName&" "&ThisItem.LastName
+            VerticalAlign: =VerticalAlign.Top
+            Width: =445
+            X: =130
+            Y: =22
+            ZIndex: =1
+
+        NextArrow1 As icon.ChevronRight:
+            AccessibleLabel: =Self.Tooltip
+            Color: =RGBA(128, 128, 128, 1)
+            Height: =60
+            Icon: =Icon.Edit
+            OnSelect: |-
+                =EditForm('add/edit_form');
+                Navigate('Add/Edit_Screen')
+            PaddingBottom: =10
+            PaddingLeft: =10
+            PaddingRight: =7.50
+            PaddingTop: =7.50
+            TabIndex: =0
+            Tooltip: ="View item details"
+            Width: =44.98
+            X: =916.80
+            Y: =(Parent.TemplateHeight / 2) - (Self.Height / 2)
+            ZIndex: =3
+
+        Separator1 As rectangle:
+            BorderColor: =RGBA(230, 230, 230, 1)
+            Fill: =RGBA(230, 230, 230, 1)
+            Height: =1
+            OnSelect: =Select(Parent)
+            Width: =976.02
+            X: =0.00
+            Y: =Parent.TemplateHeight - 1
+            ZIndex: =4
+
+        Label3 As label:
+            OnSelect: =Select(Parent)
+            PaddingRight: =3.75
+            PaddingTop: =3.75
+            Size: =12
+            Text: |-
+                ="Participant:"
+            Width: =113
+            X: =15.74
+            Y: =12
+            ZIndex: =5
+
+        Label4 As label:
+            OnSelect: =Select(Parent)
+            PaddingRight: =3.75
+            PaddingTop: =3.75
+            Size: =12
+            Text: |-
+                ="Age:"
+            Width: =112.45
+            X: =15.74
+            Y: =53
+            ZIndex: =6
+
+        ChildName As label:
+            Height: =33
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0.00
+            PaddingTop: =0.00
+            Size: =14
+            Text: =ThisItem.Age&" Years Old"
+            VerticalAlign: =VerticalAlign.Top
+            Width: =136
+            X: =130
+            Y: =59
+            ZIndex: =7
+
+        checkbox_CheckIn As checkbox:
+            BorderColor: =RGBA(128, 128, 128, 1)
+            CheckboxBorderColor: =RGBA(128, 128, 128, 1)
+            CheckmarkFill: =Green
+            Color: =
+            Default: |
+                =//If(CountRows(Filter(DB_A_Registration, Title = Text(Today())))>0 And CountRows(Filter(DB_A_Registration, ID_Registration = ThisItem.ID))>0,
+                //true,
+                //false
+                //)
+                If(IsBlank(LookUp(DB_Attendance,ID_Registration=ThisItem.ID And Title=Text(Today(), "mm/dd/yyyy"),ID)),
+                false,
+                true
+                )
+            Height: =48
+            OnCheck: |-
+                =If(
+                    IsBlank(
+                        LookUp(
+                            DB_Attendance,
+                            ID_Registration = ThisItem.ID And Title = Text(Today(), "mm/dd/yyyy"),
+                            ID
+                        )
+                    ),
+                    Collect(
+                        DB_Attendance,
+                        {
+                            Title: Text( Today(), "mm/dd/yyyy"),
+                            ProgramStartDate: ThisItem.StartDate,
+                            ParticipantFirstName: ThisItem.FirstName,
+                            ParticipantLastName: ThisItem.LastName,
+                            ID_Registration: ThisItem.ID,
+                            ProgramName: ThisItem.Title
+                        }
+                    );Refresh(DB_Attendance),
+                    Notify(
+                        ThisItem.FirstName & " " & ThisItem.LastName & " " & "Already Check-In",
+                        NotificationType.Error
+                    )
+                )
+            OnSelect: =Refresh(DB_Attendance)
+            OnUncheck: |-
+                =RemoveIf(DB_Attendance, ID=LookUp(DB_Attendance, ID_Registration = ThisItem.ID && Title = Text(Today(), "mm/dd/yyyy")).ID);
+                Refresh(DB_Attendance)
+            PaddingRight: =0.00
+            PaddingTop: =0.00
+            Size: =9.75
+            Text: =If (checkbox_CheckIn.Value, "Check-In", "Absent")
+            Width: =141.68
+            X: =663.43
+            Y: =28
+            ZIndex: =8
+
+    dd_StartDate As dropdown:
+        BorderColor: =RGBA(245, 157, 35, 1)
+        ChevronBackground: =RGBA(245, 157, 35, 1)
+        Default: ="Please Select"
+        DisplayMode: = DisplayMode.Edit
+        HoverFill: =LightGray
+        Items: =Distinct(Filter(DB_Registration,ProgramName=cd_ProgramName.Selected.Result),StartDate)
+        PaddingRight: =7.50
+        PaddingTop: =7.50
+        SelectionFill: =RGBA(245, 157, 35, 1)
+        Size: =13.49
+        Tooltip: ="Select a Program"
+        Width: =233.14
+        X: =757.88
+        Y: =101
+        ZIndex: =2
+
+    Label1 As label:
+        PaddingRight: =3.75
+        PaddingTop: =3.75
+        Size: =13.49
+        Text: |-
+            ="Program Name:"
+        Width: =141.68
+        X: =14.99
+        Y: =101
+        ZIndex: =3
+
+    Label2 As label:
+        PaddingRight: =3.75
+        PaddingTop: =3.75
+        Size: =13.49
+        Text: |-
+            ="Start Date:"
+        Width: =119
+        X: =637.94
+        Y: =101
+        ZIndex: =4
+
+    Rectangle2 As rectangle:
+        BorderColor: =RGBA(255, 255, 255, 0.51)
+        Fill: =RGBA(245, 157, 35, 1)
+        Height: =73
+        Width: =1024.00
+        X: =0.00
+        ZIndex: =5
+
+    Image1 As image:
+        Height: =80
+        Image: ='mofp-logo-colour-dark'
+        OnSelect: =Navigate(Main_Screen)
+        PaddingRight: =0.00
+        PaddingTop: =0.00
+        Width: =108.70
+        X: =14.99
+        ZIndex: =6
+
+    Button2 As button:
+        Fill: =RGBA(255, 255, 255, 0.28)
+        Height: =52
+        HoverColor: =RGBA(255, 191, 0, 1)
+        HoverFill: =ColorFade(RGBA(255, 191, 0, 1), -20%)
+        OnSelect: =NewForm('add/edit_form');Navigate('Add/Edit_Screen')
+        PaddingRight: =3.75
+        PaddingTop: =3.75
+        Size: =11.24
+        Text: ="Register"
+        Width: =83.96
+        X: =907.06
+        Y: =10
+        ZIndex: =8
+
+    Button2_1 As button:
+        Fill: =RGBA(255, 255, 255, 0.28)
+        Height: =52
+        HoverColor: =RGBA(255, 191, 0, 1)
+        HoverFill: =ColorFade(RGBA(255, 191, 0, 1), -20%)
+        OnSelect: =NewForm('add/edit_form'); Navigate('Add/Edit_Screen')
+        PaddingRight: =3.75
+        PaddingTop: =3.75
+        Size: =11.24
+        Text: ="New Program"
+        Visible: =false
+        Width: =130.44
+        X: =757.88
+        Y: =10
+        ZIndex: =9
+
+    cd_ProgramName As combobox:
+        BorderColor: =RGBA(245, 157, 35, 1)
+        ChevronBackground: =RGBA(245, 157, 35, 1)
+        DisplayFields: =["Result"]
+        FocusedBorderThickness: =2
+        HoverFill: =LightGray
+        InputTextPlaceholder: ="Select Program"
+        Items: =Distinct(DB_Registration, ProgramName).Result
+        PaddingRight: =3.75
+        PaddingTop: =3.75
+        SearchFields: =["Result"]
+        SearchItems: =Search(Distinct(DB_Registration, ProgramName).Result,cd_ProgramName.SearchText,"Result")
+        SelectionFill: =RGBA(245, 157, 35, 1)
+        SelectMultiple: =false
+        Size: =9.75
+        Width: =448.28
+        X: =176.91
+        Y: =101
+        ZIndex: =10
+
+    Timer1 As timer:
+        AutoPause: =false
+        AutoStart: =true
+        Duration: =3000
+        OnTimerEnd: =Refresh(DB_Attendance)
+        Repeat: =true
+        Visible: =false
+        X: =16
+        Y: =20
+        ZIndex: =11
+
