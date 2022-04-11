@@ -1,13 +1,6 @@
 Main_Screen As screen:
     Fill: =
-    OnVisible: |-
-        =//ClearCollect(collectProgramName, {Result:"All"});
-        //Collect(collectProgramName, Distinct(DB_Registration, ProgramName));
-        
-        //Collect(collectStartDate, If (dd_ProgramName.Selected.Result = "All", 
-        //Distinct(DB_Registration, StartDate), 
-        //Filter(DB_Registration, ProgramName = dd_ProgramName.Selected.Result)
-        //))
+    OnVisible: =
 
     "Registration_Gallery As gallery.'BrowseLayout_Vertical_TwoTextVariant_ver4.0'":
         BorderColor: =RGBA(230, 230, 230, 1)
