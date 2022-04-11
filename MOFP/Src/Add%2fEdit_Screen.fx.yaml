@@ -1,11 +1,5 @@
 "'Add/Edit_Screen' As screen":
-    OnVisible: |-
-        =//ClearCollect(collectProgramName, {Result:"All"});
-        //Collect(collectProgramName, Sort(Distinct(DB_Registration, ProgramName),Result));
-        //Collect(collectStartDate,If (dd_ProgramName.Selected.Result = "All", 
-        //Distinct(DB_Registration, StartDate), 
-        //Filter(DB_Registration, ProgramName = dd_ProgramName.Selected.Result)
-        //))
+    OnVisible: =
 
     Rectangle2_4 As rectangle:
         BorderColor: =RGBA(255, 255, 255, 0.51)
