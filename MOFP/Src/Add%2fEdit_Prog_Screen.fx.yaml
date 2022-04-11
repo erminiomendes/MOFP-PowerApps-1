@@ -51,8 +51,10 @@
     bt_Save As button:
         Fill: =RGBA(245, 157, 35, 1)
         OnSelect: |-
-            =SubmitForm('Add/Edit_Prog_Form');
-            Back();
+            =SubmitForm('Add/Edit_Prog_Form') And Notify(
+                "Program Updated Successfully",
+                NotificationType.Success
+            ) And Back()
         PaddingRight: =3.75
         PaddingTop: =3.75
         Size: =11.24
